@@ -1,4 +1,5 @@
 
 export const urls = {
-    getItem: () => `/item`
+    getItem: () => `/item`,
+    postItem: () => `/item`
 }

@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import ShopHeader from "./components/header/ShopHeader";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import ItemList from "./components/item/ItemList";
+import AddItem from "./components/add/AddItem";
 const { Header, Content } = Layout;
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
 
           <Switch>
               <Route path='/cart'></Route>
-              <Route path='/add'></Route>
+              <Route path='/add'><AddItem /></Route>
               <Route><ItemList /></Route>
           </Switch>
       </BrowserRouter>
