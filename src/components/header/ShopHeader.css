@@ -1,0 +1,13 @@
+.menu{
+    width:50%;
+    margin: 0
+}
+
+.logo{
+    font-weight: bolder;
+    color: white;
+    font-size: 2em;
+    position: absolute;
+    top: 0;
+    right: 30px;
+}
