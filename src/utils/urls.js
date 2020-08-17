@@ -2,5 +2,6 @@
 export const urls = {
     getItem: () => `/item`,
     postItem: () => `/item`,
-    postCart: () => `/cart`
+    postCart: () => `/cart`,
+    getCartList: () => `/cart`
 }
