@@ -2,14 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import "antd/dist/antd.css"
 import "./Item.css"
-import {Button} from "antd";
+import {Button, message} from "antd";
+import axios from "axios";
+import {urls} from "../../utils/urls";
 
 
 class Item extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            isLoading: false,
+        };
+
+        this.addToChart = async () => {
+            try {
+                this.setState({isLoading: true});
+                const response = await axios.post(urls.postCart(), {id: this.props.itemData.id});
+                if (response.status === 200) {
+                    message.success("添加订单成功")
+                } else {
+                    message.error("添加订单失败，请重试")
+                }
+            } catch (e){
+                message.error("与服务器通讯失败")
+            }
+            this.setState({isLoading: false})
+        }
 
     }
 
@@ -20,7 +39,7 @@ class Item extends React.Component {
                     <img src={this.props.itemData.imageUrl} alt={this.props.itemData.name + '照片'}/>
                 </div>
                 <h3>{this.props.itemData.name}</h3>
-                <p>单价：{this.props.itemData.price}元/{this.props.itemData.unit}  <Button disabled={true}>添加至购物车</Button></p>
+                <p>单价：{this.props.itemData.price}元/{this.props.itemData.unit}  <Button onClick={this.addToChart}>添加至购物车</Button></p>
             </div>
         );
     }
@@ -28,6 +47,7 @@ class Item extends React.Component {
 
 Item.propTypes = {
     itemData: PropTypes.shape({
+        id: PropTypes.string,
         name: PropTypes.string,
         price: PropTypes.number,
         unit: PropTypes.string,
