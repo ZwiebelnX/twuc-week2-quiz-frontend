@@ -2,8 +2,7 @@ import React from "react";
 import Item from "./Item";
 import axios from 'axios';
 import {urls} from '../../utils/urls'
-import  {List, message} from "antd";
-import {Skeleton} from 'antd';
+import {List, message, Spin} from "antd";
 import './ItemList.css'
 
 class ItemList extends React.Component {
@@ -40,12 +39,12 @@ class ItemList extends React.Component {
     render() {
         return (
             <div className='item-list-container'>
-                {this.state.isLoading ? <Skeleton active/>
-                    : <List grid={{column: 5}}
-                            dataSource={this.state.itemListData}
-                            renderItem={item => (<Item itemData={item}/>)}
+                <Spin spinning={this.state.isLoading}>
+                    <List grid={{column: 5}}
+                          dataSource={this.state.itemListData}
+                          renderItem={item => (<Item itemData={item}/>)}
                     />
-                }
+                </Spin>
             </div>
         );
     }

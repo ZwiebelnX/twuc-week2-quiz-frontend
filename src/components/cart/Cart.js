@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, message, Table} from "antd";
+import {Button, message, Spin, Table} from "antd";
 import './Cart.css'
 import axios from "axios";
 import {urls} from "../../utils/urls";
@@ -9,10 +9,12 @@ class Cart extends React.Component {
         super(props);
 
         this.state = {
-            cartData: []
+            cartData: [],
+            isLoading: false
         }
 
         this.fetchData = async () => {
+            this.setState({isLoading: true})
             try {
                 const response = await axios.get(urls.getCartList());
                 if (response.status === 200) {
@@ -24,6 +26,26 @@ class Cart extends React.Component {
                 message.error('与服务器通讯错误')
                 console.log(e)
             }
+            this.setState({isLoading: false})
+        }
+
+
+        this.deleteItem = async (itemId) => {
+            this.setState({isLoading: true})
+            try {
+                const response = await axios.delete(urls.deleteCartItem(),{data: {id: itemId}});
+                if (response.status === 200) {
+                    message.success('删除成功')
+                    this.fetchData().then()
+                } else {
+                    message.error('删除失败，请重试')
+                }
+            } catch (e){
+                message.error('与服务器通讯错误')
+                console.log(e)
+            }
+            this.setState({isLoading: false})
+
         }
     }
 
@@ -58,7 +80,7 @@ class Cart extends React.Component {
             width: 80,
             render: (text, record) => {
                 return (
-                    <Button type='danger'>删除</Button>
+                    <Button type='danger' onClick={() => this.deleteItem(record.itemId)}>删除</Button>
                 )
             }
         }
@@ -67,12 +89,15 @@ class Cart extends React.Component {
         return (
             <div className='cart-container'>
                 <h1>商品列表</h1>
-                <Table
-                    columns={columns}
-                    dataSource={this.state.cartData}
-                >
+                <Spin spinning={this.state.isLoading}>
+                    <Table
+                        columns={columns}
+                        dataSource={this.state.cartData}
+                        rowKey={(record, index) => `item_${index}`}
+                    >
 
-                </Table>
+                    </Table>
+                </Spin>
             </div>
         );
     }
