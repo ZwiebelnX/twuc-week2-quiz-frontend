@@ -40,7 +40,7 @@ class ItemList extends React.Component {
         return (
             <div className='item-list-container'>
                 <Spin spinning={this.state.isLoading}>
-                    <List grid={{column: 5}}
+                    <List grid={{column: 4}}
                           dataSource={this.state.itemListData}
                           renderItem={item => (<Item itemData={item}/>)}
                     />

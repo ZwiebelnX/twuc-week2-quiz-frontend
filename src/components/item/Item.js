@@ -1,4 +1,5 @@
 import React from "react";
+import {PlusOutlined} from '@ant-design/icons'
 import PropTypes from "prop-types";
 import "antd/dist/antd.css"
 import "./Item.css"
@@ -39,7 +40,10 @@ class Item extends React.Component {
                     <img src={this.props.itemData.imageUrl} alt={this.props.itemData.name + '照片'}/>
                 </div>
                 <h3>{this.props.itemData.name}</h3>
-                <p>单价：{this.props.itemData.price}元/{this.props.itemData.unit}  <Button onClick={this.addToChart}>添加至购物车</Button></p>
+                <p>单价：{this.props.itemData.price}元/{this.props.itemData.unit}
+                    &nbsp;&nbsp;
+                    <Button shape='circle' type='primary' icon={<PlusOutlined />} onClick={this.addToChart} />
+                </p>
             </div>
         );
     }
