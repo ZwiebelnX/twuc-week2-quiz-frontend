@@ -3,7 +3,7 @@ import  {message} from "antd";
 
 const httpClient = axios.create({
     baseURL: "http://localhost:8080",
-    timeout: 50000
+    timeout: 10000
 });
 
 httpClient.interceptors.response.use(

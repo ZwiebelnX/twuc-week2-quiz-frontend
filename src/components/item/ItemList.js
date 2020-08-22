@@ -10,12 +10,13 @@ class ItemList extends React.Component {
         super(props);
 
         this.state = {
-            isLoading: true,
+            isLoading: false,
             totalPage: 1,
             itemListData: []
         };
 
         this.fetchData = async () => {
+            this.setState({isLoading: true})
             try {
                 const response = await axios.get(urls.getItem());
                 if (response.status === 200) {
@@ -31,6 +32,10 @@ class ItemList extends React.Component {
 
     }
 
+    setLoading(status){
+        this.setState({isLoading:status})
+    }
+
 
     componentDidMount() {
         this.fetchData().then()
@@ -42,7 +47,8 @@ class ItemList extends React.Component {
                 <Spin spinning={this.state.isLoading}>
                     <List grid={{column: 4}}
                           dataSource={this.state.itemListData}
-                          renderItem={item => (<Item itemData={item}/>)}
+                          locate={{emptyText: '暂无商品'}}
+                          renderItem={item => (<Item itemData={item} setLoading={this.setLoading}/>)}
                     />
                 </Spin>
             </div>

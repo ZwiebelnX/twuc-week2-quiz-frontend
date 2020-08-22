@@ -38,10 +38,10 @@ class Cart extends React.Component {
                     message.success('删除成功')
                     this.fetchData().then()
                 } else {
-                    message.error('删除失败，请重试')
+                    message.error('订单删除失败，请稍后再试')
                 }
             } catch (e){
-                message.error('与服务器通讯错误')
+                message.error('订单删除失败，请稍后再试')
                 console.log(e)
             }
             this.setState({isLoading: false})
@@ -92,6 +92,7 @@ class Cart extends React.Component {
                 <Spin spinning={this.state.isLoading}>
                     <Table
                         columns={columns}
+                        locale={{emptyText: '暂无订单，返回商城页面继续购买'}}
                         dataSource={this.state.cartData}
                         rowKey={(record, index) => `item_${index}`}
                     >

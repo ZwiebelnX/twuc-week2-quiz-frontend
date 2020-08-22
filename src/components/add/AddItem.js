@@ -23,7 +23,7 @@ class AddItem extends React.Component {
                     this.formRef.current.resetFields()
                 }
             } catch (e) {
-                console.log(e)
+                message.error('服务器通讯错误')
             }
             this.setState({isLoading: false})
         }

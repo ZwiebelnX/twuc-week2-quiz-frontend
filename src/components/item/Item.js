@@ -42,7 +42,7 @@ class Item extends React.Component {
                 <h3>{this.props.itemData.name}</h3>
                 <p>单价：{this.props.itemData.price}元/{this.props.itemData.unit}
                     &nbsp;&nbsp;
-                    <Button shape='circle' type='primary' icon={<PlusOutlined />} onClick={this.addToChart} />
+                    <Button shape='circle' icon={<PlusOutlined />} loading={this.state.isLoading} onClick={this.addToChart} />
                 </p>
             </div>
         );
